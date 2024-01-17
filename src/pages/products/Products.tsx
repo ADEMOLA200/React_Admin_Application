@@ -14,7 +14,7 @@ const Products = () => {
         (
             async () => {
                 console.log(page);
-                const {data} = await axios.get(`products?page=${page}`);
+                const {data} = await axios.get(`http://localhost:8000/api/products?page=${page}`);
 
                 setProducts(data.data);
                 setLastPage(data.meta.last_page);
@@ -24,7 +24,7 @@ const Products = () => {
 
     const del = async (id: number) => {
         if (window.confirm('Are you sure you want to delete this record?')) {
-            await axios.delete(`products/${id}`);
+            await axios.delete(`http://localhost:8000/api/products/${id}`);
 
             setProducts(products.filter((p: Product) => p.id !== id));
         }

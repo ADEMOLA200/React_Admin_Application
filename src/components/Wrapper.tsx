@@ -14,7 +14,7 @@ const Wrapper = (props: any) => {
         (
             async () => {
                 try {
-                    const {data} = await axios.get('user');
+                    const {data} = await axios.get('http://localhost:8000/api/user');
 
                     props.setUser(new User(
                         data.id,

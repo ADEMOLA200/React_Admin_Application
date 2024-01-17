@@ -21,7 +21,7 @@ const Profile = (props: { user: User, setUser: (user: User) => void }) => {
     const infoSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        const {data} = await axios.put('users/info', {
+        const {data} = await axios.put('http://localhost:8000/api/users/info', {
             first_name,
             last_name,
             email
@@ -39,7 +39,7 @@ const Profile = (props: { user: User, setUser: (user: User) => void }) => {
     const passwordSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.put('users/password', {
+        await axios.put('http://localhost:8000/api/users/password', {
             password,
             password_confirm
         });

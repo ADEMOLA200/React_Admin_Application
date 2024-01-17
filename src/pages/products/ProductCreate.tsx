@@ -8,13 +8,13 @@ const ProductCreate = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(0)
     const [redirect, setRedirect] = useState(false);
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.post('products', {
+        await axios.post('http://localhost:8000/api/products', {
             title,
             description,
             image,
@@ -56,7 +56,14 @@ const ProductCreate = () => {
                 <div className="mb-3">
                     <label>Price</label>
                     <input type="number" className="form-control"
-                           onChange={e => setPrice(e.target.value)}
+                           onChange={e => {
+                            // convert e.target.vale to int the use the setState
+                            // console.log(e.target.value)
+                            const intValue = parseInt(e.target.value, 10);
+                            setPrice(intValue);
+                            console.log(setPrice)
+                           }}
+                          
                     />
                 </div>
                 <button className="btn btn-outline-secondary">Save</button>

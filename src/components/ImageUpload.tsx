@@ -9,7 +9,7 @@ const ImageUpload = (props: { uploaded: (url: string) => void }) => {
         const formData = new FormData();
         formData.append('image', files[0]);
 
-        const {data} = await axios.post('upload', formData);
+        const {data} = await axios.post('http://localhost:8000/api/upload', formData);
 
         props.uploaded(data.url);
     }

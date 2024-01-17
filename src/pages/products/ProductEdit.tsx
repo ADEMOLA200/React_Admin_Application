@@ -15,7 +15,7 @@ const ProductEdit = (props: any) => {
     useEffect(() => {
         (
             async () => {
-                const {data} = await axios.get(`products/${props.match.params.id}`);
+                const {data} = await axios.get(`http://localhost:8000/api/products/${props.match.params.id}`);
 
                 setTitle(data.title);
                 setDescription(data.description);
@@ -28,7 +28,7 @@ const ProductEdit = (props: any) => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.put(`products/${props.match.params.id}`, {
+        await axios.put(`http://localhost:8000/api/products/${props.match.params.id}`, {
             title,
             description,
             image,

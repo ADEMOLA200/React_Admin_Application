@@ -8,14 +8,14 @@ const UserCreate = () => {
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [role_id, setRoleId] = useState('');
+    const [role_id, setRoleId] = useState(0);
     const [roles, setRoles] = useState([]);
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
         (
             async () => {
-                const {data} = await axios.get('roles');
+                const {data} = await axios.get('http://localhost:8000/api/roles');
 
                 setRoles(data);
             }
@@ -24,16 +24,25 @@ const UserCreate = () => {
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
-
-        await axios.post('users', {
-            first_name,
-            last_name,
-            email,
-            role_id
-        });
-
-        setRedirect(true);
-    }
+    
+        try {
+            await axios.post('http://localhost:8000/api/users', {
+                first_name,
+                last_name,
+                email,
+                role_id
+            }, {
+                headers: {
+                    'Content-Type': 'application/json', // Add this line
+                }
+            });
+    
+            setRedirect(true);
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle error, e.g., show an error message to the user
+        }
+    };
 
     if (redirect) {
         return <Redirect to="/users"/>
@@ -57,7 +66,7 @@ const UserCreate = () => {
 
                 <div className="mb-3">
                     <label>Role</label>
-                    <select className="form-control" onChange={e => setRoleId(e.target.value)}>
+                    <select className="form-control" onChange={e => setRoleId(parseInt(e.target.value, 10))}>
                         {roles.map((r: Role) => {
                             return (
                                 <option key={r.id} value={r.id}>{r.name}</option>

@@ -10,7 +10,7 @@ const Roles = () => {
     useEffect(() => {
         (
             async () => {
-                const {data} = await axios.get('roles');
+                const {data} = await axios.get('http://localhost:8000/api/roles');
 
                 setRoles(data);
             }

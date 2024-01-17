@@ -6,7 +6,7 @@ import {User} from "../models/user";
 
 const Nav = (props: { user: User }) => {
     const logout = async () => {
-        await axios.post('logout', {});
+        await axios.post('http://localhost:8000/api/logout', {});
     }
 
     return (

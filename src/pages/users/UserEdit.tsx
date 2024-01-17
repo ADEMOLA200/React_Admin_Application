@@ -8,18 +8,18 @@ const UserEdit = (props: any) => {
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [role_id, setRoleId] = useState('');
+    const [role_id, setRoleId] = useState(0);
     const [roles, setRoles] = useState([]);
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
         (
             async () => {
-                const response = await axios.get('roles');
+                const response = await axios.get('http://localhost:8000/api/roles');
 
                 setRoles(response.data);
 
-                const {data} = await axios.get(`users/${props.match.params.id}`);
+                const {data} = await axios.get(`http://localhost:8000/api/users/${props.match.params.id}`);
 
                 setFirstName(data.first_name);
                 setLastName(data.last_name);
@@ -27,7 +27,7 @@ const UserEdit = (props: any) => {
                 setRoleId(data.role.id);
             }
         )()
-    }, []);
+    }, [props.match.params.id]);
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -73,7 +73,7 @@ const UserEdit = (props: any) => {
                     <label>Role</label>
                     <select className="form-control"
                             value={role_id}
-                            onChange={e => setRoleId(e.target.value)}>
+                            onChange={e => setRoleId(parseInt(e.target.value))}>
                         {roles.map((r: Role) => {
                             return (
                                 <option key={r.id} value={r.id}>{r.name}</option>

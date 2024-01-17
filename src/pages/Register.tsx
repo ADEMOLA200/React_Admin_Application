@@ -8,7 +8,7 @@ class Register extends Component {
     last_name = '';
     email = '';
     password = '';
-    password_confirm = '';
+    confirm_password = '';
     state = {
         redirect: false
     };
@@ -16,12 +16,12 @@ class Register extends Component {
     submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await axios.post('register', {
+        await axios.post('http://localhost:8000/api/register', {
             first_name: this.first_name,
             last_name: this.last_name,
             email: this.email,
             password: this.password,
-            password_confirm: this.password_confirm,
+            confirm_password: this.confirm_password,
         });
 
         this.setState({
@@ -56,7 +56,7 @@ class Register extends Component {
                     />
 
                     <input type="password" className="form-control" placeholder="Password Confirm" required
-                           onChange={e => this.password_confirm = e.target.value}
+                           onChange={e => this.confirm_password = e.target.value}
                     />
 
                     <button className="w-100 btn btn-lg btn-primary" type="submit">Submit</button>

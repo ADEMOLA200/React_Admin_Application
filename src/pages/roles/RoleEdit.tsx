@@ -5,7 +5,7 @@ import Wrapper from "../../components/Wrapper";
 import {Permission} from "../../models/permission";
 
 const RoleEdit = (props: any) => {
-    const [permissions, setPermissions] = useState([]);
+    const [permissions, setPermissions] = useState([] as Permission[]);
     const [selected, setSelected] = useState([] as number[]);
     const [name, setName] = useState('');
     const [redirect, setRedirect] = useState(false);
@@ -23,7 +23,7 @@ const RoleEdit = (props: any) => {
                 setSelected(data.permissions.map((p: Permission) => p.id));
             }
         )();
-    }, []);
+    }, [props.match.params.id]);
 
     const check = (id: number) => {
         if (selected.some(s => s === id)) {
@@ -64,18 +64,19 @@ const RoleEdit = (props: any) => {
                 <div className="mb-3 row">
                     <label className="col-sm-2 col-form-label">Permissions</label>
                     <div className="col-sm-10">
-                        {permissions.map((p: Permission) => {
-                            return (
-                                <div className="form-check form-check-inline col-3" key={p.id}>
-                                    <input className="form-check-input" type="checkbox"
-                                           value={p.id}
-                                           checked={selected.some(s => s === p.id)}
-                                           onChange={() => check(p.id)}
-                                    />
-                                    <label className="form-check-label">{p.name}</label>
-                                </div>
-                            )
-                        })}
+                    {permissions && permissions.map((p: Permission) => (
+                        <div className="form-check f xzorm-check-inline col-3" key={p.id}>
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                value={p.id}
+                                checked={selected.some(s => s === p.id)}
+                                onChange={() => check(p.id)}
+                            />
+                            <label className="form-check-label">{p.name}</label>
+                        </div>
+                    ))}
+
                     </div>
                 </div>
 

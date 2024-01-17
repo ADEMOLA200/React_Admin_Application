@@ -25,7 +25,7 @@ const Orders = () => {
     useEffect(() => {
         (
             async () => {
-                const {data} = await axios.get(`orders?page=${page}`);
+                const {data} = await axios.get(`http://localhost:8000/api/orders?page=${page}`);
 
                 setOrders(data.data);
                 setLastPage(data.meta.last_page);
